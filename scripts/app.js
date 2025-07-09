@@ -1,5 +1,6 @@
 function init(){
     const gridElem = document.querySelector('.grid')
+    const scoreElem = document.querySelector('#score-display')
 
 
     const cells = []
@@ -9,6 +10,7 @@ function init(){
     // put any number between 0 and 29
     // try to change the number, you will notice, the duck will apeare in a different location
     let duckPosition = 70
+    let score = 0
 
 
     function addDuck(){
@@ -29,7 +31,26 @@ function init(){
         } , 3000)
     }
 
+    // this is another way to add an event listener
+        // cells.array.forEach(cell => {
+        //     cell.addEventListener()
+        // });
 
+    // if we keep it empty, even if we clicked on plain area that clicked will Worker, so we have to set a target "event"
+    // function handleClick(){
+        
+    // }
+
+     function handleClick(event){
+        // check if it has a duck class "div that has duck"
+        if(event.target.classList.contains('duck')){
+            score +=10
+            scoreElem.innerText = `Your score is ${score}`
+            // we can use textContent as well, it will do the same
+                // scoreElem.textContent = `Your score is ${score}`
+            console.log("score: "+score)
+        }
+    }
     function createGrid(){
         // for every call that we require create a div
         // append this call to our grid
@@ -43,6 +64,10 @@ function init(){
             // cell.classList.add("duck")
             cell.textContent = i
 
+            // to keep it listen to clicks
+            cell.addEventListener('click', handleClick)
+
+
             // textContent is the text content of the cell
             // it is the same as the innerText
             
@@ -51,8 +76,7 @@ function init(){
 
             // what we just did is "create and push" directly into the array
 
-            gridElem.appendChild(cell)
-        }
+            gridElem.appendChild(cell)        }
             console.log(cells)
 
     }
@@ -60,6 +84,7 @@ function init(){
     play()
     // addDuck()
     // removeDuck()
+
 
 
 }
