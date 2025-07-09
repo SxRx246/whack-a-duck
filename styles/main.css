@@ -12,3 +12,11 @@
     border: 1px solid black;
 
 }
+
+.duck {
+    background-image: url('../assets/duck.jpg');
+    /* by this background size: this will let the image be within the div size */
+    background-size: contain;
+    /* wihout this line it will lets the duck apeare more than once in the div, which does not look good, so it is better to use the no repeate, to just apear once*/
+    background-repeat: no-repeat;
+}
