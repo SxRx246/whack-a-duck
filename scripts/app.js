@@ -35,9 +35,7 @@ function init(){
     function play(){
         setInterval(() => {
             if (totalDucks < 10){
-            removeDuck()
-            duckPosition = Math.floor(Math.random()*numberOfCells)
-            addDuck()
+                placeRandomDuck()
             }
             else {
                 endGame()
@@ -45,7 +43,11 @@ function init(){
             }
         }, 3000)}
 
-    
+    function placeRandomDuck(){
+            removeDuck()
+            duckPosition = Math.floor(Math.random()*numberOfCells)
+            addDuck()
+    }
 
     // this is another way to add an event listener
         // cells.array.forEach(cell => {
@@ -69,6 +71,13 @@ function init(){
             // we can use textContent as well, it will do the same
                 // scoreElem.textContent = `Your score is ${score}`
             audioElem.play()
+
+            // by adding the removeDuck, this will not allow getting more points in the same square
+            // removeDuck()
+
+            // if we called the placeRandomDuck(), when the duck is clicked, it will disapear and show in another location
+            placeRandomDuck()
+
             console.log("score: "+score)
         }
     }
