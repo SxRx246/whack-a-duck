@@ -1,7 +1,7 @@
 function init(){
     const gridElem = document.querySelector('.grid')
     const scoreElem = document.querySelector('#score-display')
-
+    const audioElem = document.querySelector('#quack')
 
     const cells = []
     const gridWidth =10
@@ -11,25 +11,41 @@ function init(){
     // try to change the number, you will notice, the duck will apeare in a different location
     let duckPosition = 70
     let score = 0
+    let totalDucks = 0
 
 
     function addDuck(){
+        totalDucks++
         cells[duckPosition].classList.add('duck')
-        console.log("a duck has been added")
+        // console.log("a duck has been added")
     }
 
     function removeDuck(){
         cells[duckPosition].classList.remove('duck')
-        console.log("a duck has been removed")
+        // console.log("a duck has been removed")
     }
 
+
+    function endGame(){
+        alert("The game is ended, your score is "+score) 
+        score = 0
+        scoreElem.textContent = "Your score is 0"
+        totalDucks = 0
+    }
     function play(){
         setInterval(() => {
+            if (totalDucks < 10){
             removeDuck()
             duckPosition = Math.floor(Math.random()*numberOfCells)
             addDuck()
-        } , 3000)
-    }
+            }
+            else {
+                endGame()
+                // alert("The game is ended, your score is "+score) 
+            }
+        }, 3000)}
+
+    
 
     // this is another way to add an event listener
         // cells.array.forEach(cell => {
@@ -44,10 +60,15 @@ function init(){
      function handleClick(event){
         // check if it has a duck class "div that has duck"
         if(event.target.classList.contains('duck')){
+            // with this pause and currentTime we are able to run the audio couple of times, even if it is running, it will stop and run again
+            audioElem.pause()
+            audioElem.currentTime = 0
+
             score +=10
             scoreElem.innerText = `Your score is ${score}`
             // we can use textContent as well, it will do the same
                 // scoreElem.textContent = `Your score is ${score}`
+            audioElem.play()
             console.log("score: "+score)
         }
     }
